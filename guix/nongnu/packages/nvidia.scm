@@ -1,4 +1,4 @@
-(define-module (guix packages nvidia)
+(define-module (nongnu packages nvidia)
   #:use-module (gnu packages)
   #:use-module (gnu packages lisp)
   #:use-module ((guix licenses) #:prefix license:)
@@ -165,7 +165,7 @@
                       ;; patchelf
                       (let* ((libc (assoc-ref inputs "libc"))
                              (ld.so (string-append libc ,(glibc-dynamic-linker)))
-                                                    
+
                              (out (assoc-ref outputs "out"))
                              (rpath (string-join
                                      (list "$ORIGIN"

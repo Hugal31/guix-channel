@@ -1,4 +1,4 @@
-(define-module (nongnu services kernel-modules)
+(define-module (nongnu services nvidia)
   #:use-module (gnu packages linux)
   #:use-module (gnu services)
   #:use-module (gnu services base)
@@ -6,9 +6,8 @@
   #:use-module (guix gexp)
   #:use-module (guix records)
   #:use-module (ice-9 match)
-  #:use-module (nongnu packages linux)
+  #:use-module (nongnu packages nvidia)
   #:export (nvidia-insmod-service-type))
-
 
 (define (nvidia-insmod-shepherd-service config)
   (list (shepherd-service
@@ -27,24 +26,4 @@
    (name 'nvidia-insmod-name)
    (extensions
     (list (service-extension shepherd-root-service-type nvidia-insmod-shepherd-service)))
-   (default-value '())))
-
-
-;; testing shepherd service
-(define (hello-shepherd-service config)
-  (list (shepherd-service
-         (provision '(hello))
-         (requirement '())
-         (start #~(lambda _
-                    (and
-                     (zero? (system* "touch" "/tmp/hello"))
-                     (zero? (system* "touch" "/home/hebi/tmp/hello"))
-                     (zero? (system* "touch" "/var/hello")))))
-         (respawn? #f))))
-
-(define hello-service-type
-  (service-type
-   (name 'hello)
-   (extensions
-    (list (service-extension shepherd-root-service-type hello-shepherd-service)))
    (default-value '())))
